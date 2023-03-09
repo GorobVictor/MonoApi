@@ -12,6 +12,6 @@ namespace MonoApi.Models
         public string Description { get; set; }
         public long CurrencyCode { get; set; }
         public long Balance { get; set; }
-        public long Goal { get; set; }
+        public long? Goal { get; set; }
     }
 }

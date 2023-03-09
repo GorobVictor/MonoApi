@@ -47,10 +47,10 @@ namespace MonoApi
         public async Task<Client> GetClientInfoAsync() =>
             await this.ExecuteAsync<Client>(HttpMethod.Get, "personal/client-info");
 
-        public List<Extract> GetExtract(string accountId, DateTime from, DateTime? to) =>
+        public List<Extract> GetExtract(string accountId, DateTime from, DateTime? to = null) =>
             this.Execute<List<Extract>>(HttpMethod.Get, $"personal/statement/{accountId}/{this.GetUnix(from)}/{this.GetUnix(to)}");
 
-        public async Task<List<Extract>> GetExtractAsync(string accountId, DateTime from, DateTime? to) =>
+        public async Task<List<Extract>> GetExtractAsync(string accountId, DateTime from, DateTime? to = null) =>
             await this.ExecuteAsync<List<Extract>>(HttpMethod.Get, $"personal/statement/{accountId}/{this.GetUnix(from)}/{this.GetUnix(to)}");
 
         public void SetWebHook(string webHookUrl) =>
@@ -66,9 +66,8 @@ namespace MonoApi
 
         private async Task<T> ExecuteAsync<T>(HttpMethod method, string url, object body = null)
         {
-            var response = await this.ExecuteAsync(method, url, body);
-
-            return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            using (var response = await this.ExecuteAsync(method, url, body))
+                return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
         }
 
         private HttpResponseMessage Execute(HttpMethod method, string url, object body = null) =>
@@ -84,19 +83,18 @@ namespace MonoApi
                     request.Content = content;
                 }
 
-                using (var response = await this._client.SendAsync(request))
+                var response = await this._client.SendAsync(request);
+
+                if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    if (response.StatusCode == HttpStatusCode.OK)
-                    {
-                        return response;
-                    }
-                    else
-                    {
-                        var content = await response.Content.ReadAsStringAsync();
-                        var callback = this.GetCallback(response.StatusCode);
-                        if (callback != null) callback(content);
-                        throw new RequestException(response.StatusCode, content);
-                    }
+                    return response;
+                }
+                else
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    var callback = this.GetCallback(response.StatusCode);
+                    if (callback != null) callback(content);
+                    throw new RequestException(response.StatusCode, content);
                 }
             }
         }

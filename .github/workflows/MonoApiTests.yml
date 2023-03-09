@@ -1,0 +1,13 @@
+name: MonoApiTests
+
+on: push
+
+jobs:
+  tests:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: MonoApi Testing
+        env:
+          token: ${{ secrets.TOKEN }}
+        run: dotnet test

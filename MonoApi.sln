@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoApiSolution", "src\MonoApi\MonoApi.csproj", "{F2A712D3-6880-4E76-9A14-6A076A12EB2E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoApi", "src\MonoApi\MonoApi.csproj", "{F2A712D3-6880-4E76-9A14-6A076A12EB2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoApiTests", "src\MonoApiTests\MonoApiTests.csproj", "{661F335F-2D46-4F2D-8AE9-03AF402B80F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F2A712D3-6880-4E76-9A14-6A076A12EB2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2A712D3-6880-4E76-9A14-6A076A12EB2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2A712D3-6880-4E76-9A14-6A076A12EB2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{661F335F-2D46-4F2D-8AE9-03AF402B80F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{661F335F-2D46-4F2D-8AE9-03AF402B80F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{661F335F-2D46-4F2D-8AE9-03AF402B80F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{661F335F-2D46-4F2D-8AE9-03AF402B80F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
